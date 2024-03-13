@@ -38,6 +38,11 @@ class VehicleTestCase(APITestCase):
     def test_list_car(self):
         """Тестирование вывода списка машин"""
 
+        Car.objects.create(
+            title='list test',
+            description='list test'
+        )
+
         response = self.client.get(
             '/cars/'
         )
@@ -45,5 +50,10 @@ class VehicleTestCase(APITestCase):
         self.assertEquals(
             response.status_code,
             status.HTTP_200_OK
+        )
+
+        self.assertEquals(
+            response.json(),
+            [{'id': 2, 'milage': [], 'title': 'list test', 'description': 'list test', 'owner': None}]
         )
 
